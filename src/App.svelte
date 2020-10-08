@@ -55,11 +55,13 @@
 
   setInterval(() => {
     const c = document.getElementById("bowl").children;
-    const target = c[c.length - 1];
+    const target = c[0];
 
     if (target) {
-      const text = target.innerText;
-      if (UPDATED === +text) {
+      const lastTarget = c[c.length - 1];
+      const first = target.innerText;
+      const end = lastTarget.innerText;
+      if (UPDATED === +first && UPDATED === +end) {
         END = performance.now();
         UPDATE_TIME = ((END - START) / 1000).toFixed(3);
         UPDATED = null;
