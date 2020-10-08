@@ -13,6 +13,7 @@
 
   let START;
   let END;
+  let SUM = 0;
 
   let UPDATED = null;
   let CREATED = null;
@@ -48,6 +49,7 @@
     const c = document.getElementById("bowl").children;
     if (CREATED === c.length) {
       END = performance.now();
+      SUM = c.length;
       TIME = ((END - START) / 1000).toFixed(3);
       CREATED = null;
     }
@@ -92,7 +94,7 @@
 <style>
   :root {
     --progress-height: 40px;
-    --progress-width: 300px;
+    --progress-width: 500px;
     --progress-border-size: 15px;
     --progress-outer-height: calc(
       var(--progress-height) + var(--progress-border-size) * 2
@@ -111,6 +113,17 @@
     padding: 0;
   }
 
+  button {
+    background: #2196f3;
+    color: #fff;
+    font-size: 15px;
+    display: block;
+    border: none;
+    width: 100%;
+    margin-top: 20px;
+    padding: 10px;
+  }
+
   .container {
     top: 0;
     left: 0;
@@ -125,18 +138,9 @@
     overflow: hidden;
   }
 
-  button {
-    background: #2196f3;
-    color: #fff;
-    font-size: 15px;
-    display: block;
-    border: none;
-    width: 100%;
-    margin-top: 20px;
-    padding: 10px;
-  }
-
   .dot {
+    font-size: 0;
+
     height: 25px;
     width: 25px;
     background-color: gray;
@@ -167,8 +171,8 @@
 
   .my-input {
     position: fixed;
-    height: 40px;
-    width: 300px;
+    width: 500px;
+    padding-top: 70px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -176,16 +180,21 @@
 
   .my-input input {
     font-size: 30px;
-    height: 100%;
+    height: 40px;
     width: 100%;
     box-sizing: border-box;
+    top: 0;
+    left: 0;
+    position: absolute;
+    z-index: 999;
   }
 
   .progress {
-    position: fixed;
-    top: 50%;
+    z-index: 99;
+    position: absolute;
+    top: 0;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -15px);
     height: calc(var(--progress-outer-height));
     width: calc(var(--progress-outer-width));
     background: linear-gradient(to right, #2196f3 99.99%, transparent),
@@ -245,12 +254,13 @@
 </style>
 
 <div class="container" />
-<div class="progress" />
 <div class="my-input">
+  <div class="progress" />
+
   <input type="text" on:input={changeFn} />
   <div class="memory">{MEMORY_1}</div>
   <div class="memory">{MEMORY_2}</div>
-  <div class="memory">Create Sec : {TIME}</div>
+  <div class="memory">Create Sec : {TIME} ({SUM})</div>
   <div class="memory">Update Sec : {UPDATE_TIME}</div>
   <button on:click={myClick}> 업데이트 </button>
 </div>
