@@ -1,6 +1,8 @@
 <script>
   //   export let name;
 
+  import { onMount, beforeUpdate, afterUpdate, onDestroy, tick } from "svelte";
+
   const colorClasses = ["primary", "secondary", "tertiary", "quaternary"];
 
   let LIST = [];
@@ -17,6 +19,22 @@
 
   let UPDATED = null;
   let CREATED = null;
+
+  afterUpdate(async (e) => {
+    const c = document.getElementById("bowl").children;
+    if (CREATED === c.length) {
+      END = performance.now();
+      SUM = c.length;
+      TIME = ((END - START) / 1000).toFixed(3);
+      CREATED = null;
+    }
+
+    if (UPDATED !== null) {
+      END = performance.now();
+      UPDATE_TIME = ((END - START) / 1000).toFixed(3);
+      UPDATED = null;
+    }
+  });
 
   const changeFn = (e) => {
     START = performance.now();
@@ -45,31 +63,31 @@
     LIST = returnArr;
   };
 
-  setInterval(() => {
-    const c = document.getElementById("bowl").children;
-    if (CREATED === c.length) {
-      END = performance.now();
-      SUM = c.length;
-      TIME = ((END - START) / 1000).toFixed(3);
-      CREATED = null;
-    }
-  });
+  // setInterval(() => {
+  //   const c = document.getElementById("bowl").children;
+  //   if (CREATED === c.length) {
+  //     END = performance.now();
+  //     SUM = c.length;
+  //     TIME = ((END - START) / 1000).toFixed(3);
+  //     CREATED = null;
+  //   }
+  // });
 
-  setInterval(() => {
-    const c = document.getElementById("bowl").children;
-    const target = c[0];
+  // setInterval(() => {
+  //   const c = document.getElementById("bowl").children;
+  //   const target = c[0];
 
-    if (target) {
-      const lastTarget = c[c.length - 1];
-      const first = target.innerText;
-      const end = lastTarget.innerText;
-      if (UPDATED === +first && UPDATED === +end) {
-        END = performance.now();
-        UPDATE_TIME = ((END - START) / 1000).toFixed(3);
-        UPDATED = null;
-      }
-    }
-  }, 1000);
+  //   if (target) {
+  //     const lastTarget = c[c.length - 1];
+  //     const first = target.innerText;
+  //     const end = lastTarget.innerText;
+  //     if (UPDATED === +first && UPDATED === +end) {
+  //       END = performance.now();
+  //       UPDATE_TIME = ((END - START) / 1000).toFixed(3);
+  //       UPDATED = null;
+  //     }
+  //   }
+  // }, 1000);
 
   setInterval(() => {
     MEMORY_1 =
@@ -87,7 +105,8 @@
 
   const myClick = () => {
     START = performance.now();
-    UPDATED = ++UPDATE;
+    UPDATED = true;
+    UPDATE++;
   };
 </script>
 
@@ -139,7 +158,7 @@
   }
 
   .dot {
-    font-size: 0;
+    /* font-size: 0; */
 
     height: 25px;
     width: 25px;
