@@ -286,6 +286,14 @@
 
 <div id="bowl">
   {#each LIST as item}
-    <div class={item.class} style={item.style}>{UPDATE}</div>
+    <div class={item.class} style={item.style}>
+      {#if UPDATE == 1}
+        <div>{UPDATE}asdfasdf</div>
+      {:else if UPDATE == 2}
+        <span>{UPDATE}asdfasdf</span>
+      {:else if UPDATE == 3}
+        <p>{UPDATE}asdfasdf</p>
+      {:else if UPDATE == 4}<a>{UPDATE}asdfasdf</a>{:else}{UPDATE}asdfasdf{/if}
+    </div>
   {/each}
 </div>
