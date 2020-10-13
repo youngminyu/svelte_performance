@@ -293,7 +293,9 @@
         <span>{UPDATE}asdfasdf</span>
       {:else if UPDATE == 3}
         <p>{UPDATE}asdfasdf</p>
-      {:else if UPDATE == 4}<a>{UPDATE}asdfasdf</a>{:else}{UPDATE}asdfasdf{/if}
+      {:else if UPDATE == 4}
+        <a>{UPDATE}asdfasdf</a>
+      {:else}<i>{UPDATE}asdfasdf</i>{/if}
     </div>
   {/each}
 </div>
