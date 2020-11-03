@@ -3,6 +3,8 @@
 
   import { onMount, beforeUpdate, afterUpdate, onDestroy, tick } from "svelte";
 
+  import TestInner from "./Inner.svelte";
+
   const colorClasses = ["primary", "secondary", "tertiary", "quaternary"];
 
   let LIST = [];
@@ -131,6 +133,13 @@
     margin: 0;
     padding: 0;
   }
+  #bowl {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    z-index: 999;
+  }
 
   button {
     background: #2196f3;
@@ -144,6 +153,8 @@
   }
 
   .container {
+    overflow: hidden;
+    z-index: 500;
     top: 0;
     left: 0;
     position: fixed;
@@ -159,7 +170,6 @@
 
   .dot {
     /* font-size: 0; */
-
     height: 25px;
     width: 25px;
     background-color: gray;
@@ -191,6 +201,7 @@
   .my-input {
     position: fixed;
     width: 500px;
+    z-index: 99999;
     padding-top: 70px;
     top: 50%;
     left: 50%;
@@ -287,7 +298,9 @@
 <div id="bowl">
   {#each LIST as item}
     <div class={item.class} style={item.style}>
-      {#if UPDATE == 1}
+      {UPDATE}
+      <TestInner />
+      <!-- {#if UPDATE == 1}
         <div>{UPDATE}asdfasdf</div>
       {:else if UPDATE == 2}
         <span>{UPDATE}asdfasdf</span>
@@ -295,7 +308,7 @@
         <p>{UPDATE}asdfasdf</p>
       {:else if UPDATE == 4}
         <a>{UPDATE}asdfasdf</a>
-      {:else}<i>{UPDATE}asdfasdf</i>{/if}
+      {:else}<i>{UPDATE}asdfasdf</i>{/if} -->
     </div>
   {/each}
 </div>
