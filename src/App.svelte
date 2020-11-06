@@ -91,19 +91,19 @@
   //   }
   // }, 1000);
 
-  setInterval(() => {
-    MEMORY_1 =
-      "Memory :" +
-      Math.round(window.performance.memory.usedJSHeapSize / 1000000) +
-      "MB";
-  }, 100);
+  // setInterval(() => {
+  //   MEMORY_1 =
+  //     "Memory :" +
+  //     Math.round(window.performance.memory.usedJSHeapSize / 1000000) +
+  //     "MB";
+  // }, 100);
 
-  setInterval(() => {
-    MEMORY_2 =
-      "Total Memory :" +
-      Math.round(window.performance.memory.totalJSHeapSize / 1000000) +
-      "MB";
-  }, 100);
+  // setInterval(() => {
+  //   MEMORY_2 =
+  //     "Total Memory :" +
+  //     Math.round(window.performance.memory.totalJSHeapSize / 1000000) +
+  //     "MB";
+  // }, 100);
 
   const myClick = () => {
     START = performance.now();
@@ -292,14 +292,15 @@
   <div class="memory">{MEMORY_2}</div>
   <div class="memory">Create Sec : {TIME} ({SUM})</div>
   <div class="memory">Update Sec : {UPDATE_TIME}</div>
-  <button on:click={myClick}> 업데이트 </button>
+  <button on:click={myClick}> 업데이트업데이트 </button>
 </div>
 
 <div id="bowl">
   {#each LIST as item}
     <div class={item.class} style={item.style}>
-      {UPDATE}
-      <TestInner />
+      <div>1</div>
+      <!-- {UPDATE}
+      <TestInner /> -->
       <!-- {#if UPDATE == 1}
         <div>{UPDATE}asdfasdf</div>
       {:else if UPDATE == 2}
