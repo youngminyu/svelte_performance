@@ -22,23 +22,49 @@
   let UPDATED = null;
   let CREATED = null;
 
-  afterUpdate(async (e) => {
-    const c = document.getElementById("bowl").children;
-    if (CREATED === c.length) {
-      END = performance.now();
-      SUM = c.length;
-      TIME = ((END - START) / 1000).toFixed(3);
-      CREATED = null;
-    }
+  // afterUpdate(async (e) => {
+  //   // const c = document.getElementById("bowl").children;
 
-    if (UPDATED !== null) {
-      END = performance.now();
-      UPDATE_TIME = ((END - START) / 1000).toFixed(3);
-      UPDATED = null;
+  //   // console.log("afterUpdate");
+
+  //   // if (CREATED === c.length) {
+  //   //   END = performance.now();
+  //   //   SUM = c.length;
+  //   //   TIME = ((END - START) / 1000).toFixed(3);
+  //   //   CREATED = null;
+  //   // }
+
+  //   if (UPDATED !== null) {
+  //     END = performance.now();
+  //     UPDATE_TIME = ((END - START) / 1000).toFixed(3);
+  //     UPDATED = null;
+  //   }
+  // });
+
+  let check = false;
+  setInterval(() => {
+    const bowl = document.getElementById("bowl");
+
+    if (bowl && bowl.lastChild && check) {
+      if (+bowl.lastChild.id === ID) {
+        SUM = bowl.children.length;
+        END = performance.now();
+        TIME = ((END - START) / 1000).toFixed(3);
+        check = false;
+      }
     }
+    // END = performance.now();
+    //   SUM = c.length;
+    //   TIME = ((END - START) / 1000).toFixed(3);
+    //   CREATED = null;
+    // }
   });
 
-  const changeFn = (e) => {
+  let ID = 0;
+
+  const changeFn = async (e) => {
+    check = true;
+
     START = performance.now();
     const textValue = e.target.value;
     const length = textValue ? textValue.length : 0;
@@ -60,9 +86,20 @@
       returnArr.push({
         style: `height: ${height}px; width: ${width}px`,
         class: `dot ${color}`,
+        id: ++ID,
       });
     }
     LIST = returnArr;
+
+    // await tick();
+
+    // const c = document.getElementById("bowl").children;
+    // // if (CREATED === c.length) {
+    // END = performance.now();
+    // SUM = c.length;
+    // TIME = ((END - START) / 1000).toFixed(3);
+    // //   CREATED = null;
+    // // }
   };
 
   // setInterval(() => {
@@ -292,12 +329,12 @@
   <div class="memory">{MEMORY_2}</div>
   <div class="memory">Create Sec : {TIME} ({SUM})</div>
   <div class="memory">Update Sec : {UPDATE_TIME}</div>
-  <button on:click={myClick}> 업데이트업데이트 </button>
+  <button on:click={myClick}> 업데이트 </button>
 </div>
 
 <div id="bowl">
   {#each LIST as item}
-    <div class={item.class} style={item.style}>
+    <div class={item.class} style={item.style} id={item.id}>
       <div>1</div>
       <!-- {UPDATE}
       <TestInner /> -->
