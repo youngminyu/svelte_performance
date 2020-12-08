@@ -23,16 +23,16 @@
   let CREATED = null;
 
   // afterUpdate(async (e) => {
-  //   // const c = document.getElementById("bowl").children;
+  //   const c = document.getElementById("bowl").children;
 
-  //   // console.log("afterUpdate");
+  //   console.log("afterUpdate");
 
-  //   // if (CREATED === c.length) {
-  //   //   END = performance.now();
-  //   //   SUM = c.length;
-  //   //   TIME = ((END - START) / 1000).toFixed(3);
-  //   //   CREATED = null;
-  //   // }
+  //   if (CREATED === c.length) {
+  //     END = performance.now();
+  //     SUM = c.length;
+  //     TIME = ((END - START) / 1000).toFixed(3);
+  //     CREATED = null;
+  //   }
 
   //   if (UPDATED !== null) {
   //     END = performance.now();
@@ -41,30 +41,7 @@
   //   }
   // });
 
-  let check = false;
-  setInterval(() => {
-    const bowl = document.getElementById("bowl");
-
-    if (bowl && bowl.lastChild && check) {
-      if (+bowl.lastChild.id === ID) {
-        SUM = bowl.children.length;
-        END = performance.now();
-        TIME = ((END - START) / 1000).toFixed(3);
-        check = false;
-      }
-    }
-    // END = performance.now();
-    //   SUM = c.length;
-    //   TIME = ((END - START) / 1000).toFixed(3);
-    //   CREATED = null;
-    // }
-  });
-
-  let ID = 0;
-
   const changeFn = async (e) => {
-    check = true;
-
     START = performance.now();
     const textValue = e.target.value;
     const length = textValue ? textValue.length : 0;
@@ -86,20 +63,16 @@
       returnArr.push({
         style: `height: ${height}px; width: ${width}px`,
         class: `dot ${color}`,
-        id: ++ID,
       });
     }
     LIST = returnArr;
 
-    // await tick();
+    await tick();
 
-    // const c = document.getElementById("bowl").children;
-    // // if (CREATED === c.length) {
-    // END = performance.now();
-    // SUM = c.length;
-    // TIME = ((END - START) / 1000).toFixed(3);
-    // //   CREATED = null;
-    // // }
+    END = performance.now();
+    SUM = document.getElementById("bowl").children.length;
+    TIME = ((END - START) / 1000).toFixed(3);
+    CREATED = null;
   };
 
   // setInterval(() => {
@@ -128,19 +101,19 @@
   //   }
   // }, 1000);
 
-  // setInterval(() => {
-  //   MEMORY_1 =
-  //     "Memory :" +
-  //     Math.round(window.performance.memory.usedJSHeapSize / 1000000) +
-  //     "MB";
-  // }, 100);
+  setInterval(() => {
+    MEMORY_1 =
+      "Memory :" +
+      Math.round(window.performance.memory.usedJSHeapSize / 1000000) +
+      "MB";
+  }, 100);
 
-  // setInterval(() => {
-  //   MEMORY_2 =
-  //     "Total Memory :" +
-  //     Math.round(window.performance.memory.totalJSHeapSize / 1000000) +
-  //     "MB";
-  // }, 100);
+  setInterval(() => {
+    MEMORY_2 =
+      "Total Memory :" +
+      Math.round(window.performance.memory.totalJSHeapSize / 1000000) +
+      "MB";
+  }, 100);
 
   const myClick = () => {
     START = performance.now();
@@ -334,8 +307,8 @@
 
 <div id="bowl">
   {#each LIST as item}
-    <div class={item.class} style={item.style} id={item.id}>
-      <div>1</div>
+    <div class={item.class} style={item.style}>
+      <div>{UPDATE}</div>
       <!-- {UPDATE}
       <TestInner /> -->
       <!-- {#if UPDATE == 1}
